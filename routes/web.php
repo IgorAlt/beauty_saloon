@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 Route::group(['namespace' => 'App\Http\Controllers'], function(){
     Route::get('/', 'MainController@index')->name('main');
+    Route::get('/masters', 'MasterController@index')->name('masters');
     Route::middleware(['auth:sanctum'])->group(function (){
         Route::get('/bonuses', 'BonusController@index')->name('bonuses');
         Route::get('/admin', 'AdminController@index')->name('admin');

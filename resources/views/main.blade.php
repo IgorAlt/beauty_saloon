@@ -10,5 +10,6 @@
 <body>
     <a href="{{ route('login') }}">Войти</a>
     <a href="{{ route('register') }}">Регистрация</a>
+    <a href="{{ route('masters') }}">Мастера</a>
 </body>
 </html>
