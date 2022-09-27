@@ -21,7 +21,7 @@
                 </h2>
                 <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                        <img src="{{ $master->images }}" alt="{{ $master->name }}">
+                        <img src="{{ \Illuminate\Support\Facades\Storage::url($master->images) }}" alt="{{ $master->name }}">
                         <br>
                         Номер телефона: {{ $master->phone_number }}
                         <br>
