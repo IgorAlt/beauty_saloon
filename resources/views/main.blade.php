@@ -13,7 +13,20 @@
     <a href="{{ route('login') }}">Войти</a>
     <a href="{{ route('register') }}">Регистрация</a>
     <a href="{{ route('masters') }}">Мастера</a>
-    <h1>Наши мастера</h1>
+    <a href="{{ route('services') }}">Наши услуги</a>
+    <a href="{{ route('posts') }}">Новости</a>
+        <h1>Новости</h1>
+        @foreach($posts as $post)
+            <div class="card" style="width: 27rem; display: inline-flex" >
+                <img src="{{ \Illuminate\Support\Facades\Storage::url($post->images) }}" class="card-img-top" alt="{{ $post->name  }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ $post->name  }}</h5>
+                    <p class="card-text"> {{ mb_substr($post->post, 0, 100) . '...' }}</p>
+                    <a href="{{ route('post', $post->id) }}" class="btn btn-primary"> Подробнее...</a>
+                </div>
+            </div>
+        @endforeach
+    <h2>Наши мастера</h2>
     @foreach($masters as $master)
         <div class="accordion" id="accordionExample">
             <div class="accordion-item">
@@ -24,7 +37,7 @@
                 </h2>
                 <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                        <img src="{{  \Illuminate\Support\Facades\Storage::url($master->images) }}" alt="{{ $master->name }}">
+                        <img width="400px" src="{{  \Illuminate\Support\Facades\Storage::url($master->images) }}" alt="{{ $master->name }}">
                         <br>
                         Номер телефона: {{ $master->phone_number }}
                         <br>

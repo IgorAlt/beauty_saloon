@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Masters;
 use App\Models\Media;
+use App\Models\Posts;
 use Illuminate\Http\Request;
 
 class MainController extends Controller
@@ -12,6 +13,7 @@ class MainController extends Controller
     {
         $masters = Masters::all();
         $images = Media::all();
-        return view('main', compact('masters', 'images'));
+        $posts = Posts::limit(3)->get();
+        return view('main', compact('masters', 'images', 'posts'));
     }
 }
