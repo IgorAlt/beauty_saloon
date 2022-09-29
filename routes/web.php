@@ -19,6 +19,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function(){
     Route::get('/services', 'ServiceController@index')->name('services');
     Route::get('/posts', 'PostController@index')->name('posts');
     Route::get('/posts/{post}', 'PostController@post')->name('post');
+    Route::get('/appointment', 'AppointmentController@index')->name('appointment');
+    Route::post('/create-appointment', 'AppointmentController@createAppointment')->name('create-appointment');
     Route::middleware(['auth:sanctum'])->group(function (){
         Route::get('/bonuses', 'BonusController@index')->name('bonuses');
         Route::get('/admin', 'AdminController@index')->name('admin');

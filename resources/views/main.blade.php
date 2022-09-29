@@ -15,6 +15,13 @@
     <a href="{{ route('masters') }}">Мастера</a>
     <a href="{{ route('services') }}">Наши услуги</a>
     <a href="{{ route('posts') }}">Новости</a>
+    <a href="{{ route('appointment') }}">Записаться на приём</a>
+    @if(Session::has('success'))
+
+        <p class="alert
+    {{ Session::get('alert-class', 'alert-info') }}">{{Session::get('success') }}</p>
+
+    @endif
         <h1>Новости</h1>
         @foreach($posts as $post)
             <div class="card" style="width: 27rem; display: inline-flex" >

@@ -12,9 +12,9 @@ class PostController extends Controller
         return view('posts', compact('posts'));
     }
 
-    public function post()
+    public function post($request)
     {
-        $posts = Posts::all();
-        return view('post', compact('posts'));
+        $post = Posts::where('id', $request)->first();
+        return view('post', compact('post'));
     }
 }
