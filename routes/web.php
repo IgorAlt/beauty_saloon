@@ -23,7 +23,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function(){
     Route::post('/create-appointment', 'AppointmentController@createAppointment')->name('create-appointment');
     Route::middleware(['auth:sanctum'])->group(function (){
         Route::get('/bonuses', 'BonusController@index')->name('bonuses');
-        Route::get('/admin', 'AdminController@index')->name('admin');
+        Route::group(['middleware' => 'is_admin'], function (){
+            Route::get('/admin', 'AdminController@index')->name('admin');
+
+            Route::resource('masters_admin', 'MasterAdminController');
+        });
     });
 });
 

@@ -8,7 +8,7 @@
     <title>Панель администратора</title>
 </head>
 <body>
-    Панель администратора
+    <h1>Панель администратора</h1>
     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
         <a class="dropdown-item" href="{{ route('logout') }}"
            onclick="event.preventDefault();
@@ -20,5 +20,8 @@
             @csrf
         </form>
     </div>
+    <a href="{{ route('masters_admin.index') }}">Мастера</a>
+    <a href="">Услуги</a>
+    <a href="">Новости</a>
 </body>
 </html>

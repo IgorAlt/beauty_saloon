@@ -13,8 +13,4 @@ class Masters extends Model
         'name', 'surname', 'phone_number', 'social_media', 'images', 'information',
     ];
 
-    public function masters()
-    {
-        return $this->belongsTo(Masters::class);
-    }
 }
