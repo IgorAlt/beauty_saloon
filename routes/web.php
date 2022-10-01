@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\MainController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::group(['namespace' => 'App\Http\Controllers'], function(){
-    Route::get('/', 'MainController@index')->name('main');
+    Route::get('/', [MainController::class, 'index'])->name('main');
     Route::get('/masters', 'MasterController@index')->name('masters');
     Route::get('/services', 'ServiceController@index')->name('services');
     Route::get('/posts', 'PostController@index')->name('posts');
@@ -27,10 +27,12 @@ Route::group(['namespace' => 'App\Http\Controllers'], function(){
             Route::get('/admin', 'AdminController@index')->name('admin');
 
             Route::resource('masters_admin', 'MasterAdminController');
+            Route::resource('services_admin', 'ServiceAdminController');
         });
+        Route::get('/home', ['HomeController@index'])->name('home');
     });
 });
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+

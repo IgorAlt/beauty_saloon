@@ -9,9 +9,4 @@ class Services extends Model
 {
     use HasFactory;
     protected $fillable = ['service', 'price'];
-
-    public function services()
-    {
-        return $this->belongsTo(Services::class);
-    }
 }

@@ -32,7 +32,7 @@
                 <td>{{ $maestro->surname }}</td>
                 <td>{{ $maestro->phone_number }}</td>
                 <td>{{ $maestro->social_media }}</td>
-                <td><img width="100px" src="{{ \Illuminate\Support\Facades\Storage::url($maestro->images)  }}" alt="{{ $maestro->images }}"></td>
+                <td><img width="100px" src="{{ $maestro->image_path  }}" alt="{{ $maestro->images }}"></td>
                 <td>{{ $maestro->information }}</td>
                 <td>
                     <div class="btn-group" role="group">

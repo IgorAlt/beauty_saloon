@@ -21,7 +21,7 @@
         </form>
     </div>
     <a href="{{ route('masters_admin.index') }}">Мастера</a>
-    <a href="">Услуги</a>
+    <a href="{{ route('services_admin.index') }}">Услуги</a>
     <a href="">Новости</a>
 </body>
 </html>

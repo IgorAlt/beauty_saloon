@@ -2,40 +2,51 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AppointmentRequest;
 use App\Models\Appointment;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
 class AppointmentController extends Controller
 {
-    public function index()
+    /**
+     * comment
+     *
+     * @return View
+     */
+    public function index(): View
     {
-        $appointmentsBusy = Appointment::where('appointment_time', '>=', Carbon::today()->toDateTimeString())->get();
+        $appointmentsBusy = Appointment::query()
+            ->where(
+                'appointment_time',
+                '>=',
+                Carbon::today()->toDateTimeString()
+            )->get();
 
         return view('appointment', compact('appointmentsBusy'));
     }
 
-    public function createAppointment(Request $request)
+    /**
+     * comment
+     * @param AppointmentRequest $appointmentRequest
+     *
+     * @return RedirectResponse
+     */
+    public function createAppointment(AppointmentRequest $appointmentRequest): RedirectResponse
     {
-        $data = $request->validate([
-           'name' => 'required|string|max:10',
-           'surname' => 'required|string|max:20',
-           'phone' => 'required|string|max:20',
-            'email' => 'required|string|max:30',
-            'date' => 'required|unique:appointments,appointment_time|after:today'
+        Appointment::query()->create([
+            'name' => $appointmentRequest->name,
+            'surname' => $appointmentRequest->surname,
+            'phone_number' => $appointmentRequest->phone,
+            'email' => $appointmentRequest->email,
+            'appointment_time' => $appointmentRequest->date,
         ]);
 
-        Appointment::create([
-           'name' => $data['name'],
-           'surname' => $data['surname'],
-           'phone_number' => $data['phone'],
-           'email' => $data['email'],
-           'appointment_time' => $data['date'],
-        ]);
-
-        Mail::to($request['email'])->send(new \App\Mail\Appointment($request['name'], $request['date']));
+        Mail::to($appointmentRequest->email)
+            ->send(new \App\Mail\Appointment($appointmentRequest->name, $appointmentRequest->date));
 
         Session::flash('success', 'Вы записались на приём!');
 

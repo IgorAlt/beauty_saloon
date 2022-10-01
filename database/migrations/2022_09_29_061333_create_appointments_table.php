@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('surname');
-            $table->bigInteger('phone_number');
-            $table->string('email');
+            $table->string('phone_number');
+            $table->string('email')->nullable();
             $table->dateTime('appointment_time');
             $table->timestamps();
         });

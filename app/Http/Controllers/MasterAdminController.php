@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Masters;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class MasterAdminController extends Controller
 {
@@ -14,7 +15,13 @@ class MasterAdminController extends Controller
      */
     public function index()
     {
-        $maestros = Masters::get();
+        $maestros = Masters::query()
+            ->get()
+            ->map(function ($maestro) {
+                $maestro->image_path = Storage::url($maestro->images);
+
+                return $maestro;
+            });
 
         return view('masters_admin', compact('maestros'));
     }
