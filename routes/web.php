@@ -28,8 +28,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function(){
 
             Route::resource('masters_admin', 'MasterAdminController');
             Route::resource('services_admin', 'ServiceAdminController');
+            Route::resource('posts_admin', 'PostAdminController');
         });
-        Route::get('/home', ['HomeController@index'])->name('home');
+        Route::get('/home', 'HomeController@index')->name('home');
     });
 });
 

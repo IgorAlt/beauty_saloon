@@ -8,10 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Posts extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'post', 'image'];
+    protected $fillable = ['name_post', 'post', 'images'];
 
-    public function posts()
-    {
-        return $this->belongsTo(Posts::class);
-    }
 }
