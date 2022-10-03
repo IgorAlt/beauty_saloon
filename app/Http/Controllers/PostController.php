@@ -3,18 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Models\Posts;
-use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class PostController extends Controller
 {
-    public function index(){
+    /**Показывает все посты
+     * @return View
+     */
+    public function index(): View
+    {
         $posts = Posts::all();
-        return view('posts', compact('posts'));
+        return view('posts', ['posts' => $posts]);
     }
 
-    public function post($request)
+    /**Показывает конкретный пост
+     * @param $request
+     * @return View
+     */
+    public function post($request): View
     {
-        $post = Posts::where('id', $request)->first();
-        return view('post', compact('post'));
+        $post = Posts::query()->where('id', $request)->first();
+        return view('post', ['post' => $post]);
     }
 }

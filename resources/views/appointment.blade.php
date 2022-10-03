@@ -20,16 +20,16 @@
             <input type="text" class="form-control" id="surname" name="surname" placeholder="Натальева">
         </div>
         <div class="mb-3">
-            <label for="phone" class="form-label">Номер телефона: </label>
-            <input type="text" class="form-control" id="phone" name="phone" placeholder="89188828962">
+            <label for="phone_number" class="form-label">Номер телефона: </label>
+            <input type="text" class="form-control" id="phone_number" name="phone_number" placeholder="89188828962">
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">Адрес электронной почты: </label>
             <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
         </div>
         <div class="mb-3">
-            <label for="date" class="form-label">Время записи: </label>
-            <input type="datetime-local" class="form-control" id="date" name="date">
+            <label for="appointment_time" class="form-label">Время записи: </label>
+            <input type="datetime-local" class="form-control" id="appointment_time" name="appointment_time">
         </div>
         @if ($errors->any())
             <div class="alert alert-danger">

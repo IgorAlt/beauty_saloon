@@ -1,5 +1,12 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\BonusController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MasterController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
@@ -15,22 +22,24 @@ use App\Http\Controllers\MainController;
 */
 Route::group(['namespace' => 'App\Http\Controllers'], function(){
     Route::get('/', [MainController::class, 'index'])->name('main');
-    Route::get('/masters', 'MasterController@index')->name('masters');
-    Route::get('/services', 'ServiceController@index')->name('services');
-    Route::get('/posts', 'PostController@index')->name('posts');
-    Route::get('/posts/{post}', 'PostController@post')->name('post');
-    Route::get('/appointment', 'AppointmentController@index')->name('appointment');
-    Route::post('/create-appointment', 'AppointmentController@createAppointment')->name('create-appointment');
+    Route::get('/masters', [MasterController::class, 'index'])->name('masters');
+    Route::get('/masters/{master}', [MasterController::class, 'show'])->name('master');
+    Route::get('/services', [ServiceController::class, 'index'])->name('services');
+    Route::get('/posts', [PostController::class, 'index'])->name('posts');
+    Route::get('/posts/{post}', [PostController::class, 'post'])->name('post');
+    Route::get('/appointment', [AppointmentController::class, 'index'])->name('appointment');
+    Route::post('/create-appointment', [AppointmentController::class, 'createAppointment'])->name('create-appointment');
     Route::middleware(['auth:sanctum'])->group(function (){
-        Route::get('/bonuses', 'BonusController@index')->name('bonuses');
+        Route::get('/change-user-information', [HomeController::class, 'change'])->name('change-user-information');
+        Route::put('/update-user-information/{user}', [HomeController::class, 'update'])->name('update-user-information');
         Route::group(['middleware' => 'is_admin'], function (){
-            Route::get('/admin', 'AdminController@index')->name('admin');
+            Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 
             Route::resource('masters_admin', 'MasterAdminController');
             Route::resource('services_admin', 'ServiceAdminController');
             Route::resource('posts_admin', 'PostAdminController');
         });
-        Route::get('/home', 'HomeController@index')->name('home');
+        Route::get('/home', [HomeController::class, 'index'])->name('home');
     });
 });
 

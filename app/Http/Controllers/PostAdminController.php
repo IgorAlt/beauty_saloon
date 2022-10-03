@@ -56,17 +56,6 @@ class PostAdminController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Posts  $posts
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Posts $posts)
-    {
-        //
-    }
-
-    /**
      * Показывает форму для редактирования поста
      *
      * @param  Posts  $posts_admin

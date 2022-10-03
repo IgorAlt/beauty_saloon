@@ -11,9 +11,4 @@ class Media extends Model
     protected $fillable = [
         'image'
     ];
-
-    public function images()
-    {
-        return $this->belongsTo(Media::class);
-    }
 }

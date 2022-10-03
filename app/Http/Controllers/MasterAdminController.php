@@ -3,17 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Masters;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\View\View;
 
 class MasterAdminController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function index()
+    public function index(): View
     {
         $maestros = Masters::query()
             ->get()
@@ -23,15 +25,15 @@ class MasterAdminController extends Controller
                 return $maestro;
             });
 
-        return view('masters_admin', compact('maestros'));
+        return view('masters_admin', ['maestros' => $maestros]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function create()
+    public function create(): View
     {
         return view('masters_form');
     }
@@ -39,13 +41,13 @@ class MasterAdminController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
 
-        Masters::create([
+        Masters::query()->create([
             'name' => $request->name,
             'surname' => $request->surname,
             'phone_number' => $request->phone_number,
@@ -58,35 +60,24 @@ class MasterAdminController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Masters  $masters
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Masters $masters)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Masters  $masters
-     * @return \Illuminate\Http\Response
+     * @param  Masters  $masters_admin
+     * @return View
      */
-    public function edit(Masters $masters_admin)
+    public function edit(Masters $masters_admin): View
     {
-        return view('masters_form', compact('masters_admin'));
+        return view('masters_form', ['masters_admin' => $masters_admin]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Masters  $masters
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     * @param  Masters  $masters_admin
+     * @return RedirectResponse
      */
-    public function update(Request $request, Masters $masters_admin)
+    public function update(Request $request, Masters $masters_admin): RedirectResponse
     {
         $masters_admin->update([
             'name' => $request->name,
@@ -103,10 +94,10 @@ class MasterAdminController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Masters  $masters
-     * @return \Illuminate\Http\Response
+     * @param  Masters  $masters
+     * @return RedirectResponse
      */
-    public function destroy(Masters $masters_admin)
+    public function destroy(Masters $masters_admin): RedirectResponse
     {
         $masters_admin->delete();
 

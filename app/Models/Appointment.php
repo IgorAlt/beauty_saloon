@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Appointment extends Model
 {
@@ -12,8 +13,8 @@ class Appointment extends Model
         'name', 'surname', 'phone_number', 'email', 'appointment_time'
     ];
 
-    public function appointment()
+    public function appointmentUser()
     {
-        return $this->belongsTo(Appointment::class);
+        $this->belongsTo(User::class);
     }
 }

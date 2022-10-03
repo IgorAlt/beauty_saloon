@@ -48,17 +48,6 @@ class ServiceAdminController extends Controller
         return redirect()->route('services_admin.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  Services  $services_admin
-     * @return RedirectResponse
-     */
-    public function show(Services $services_admin)
-    {
-        //
-    }
-
     /**Показ формы редактирования услуги
      * Show the form for editing the specified resource.
      *

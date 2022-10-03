@@ -23,9 +23,9 @@ class AppointmentRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'min:2','max:10'],
             'surname' => ['required', 'string', 'min:2', 'max:20'],
-            'phone' => ['required', 'string', 'min:6','max:20'],
+            'phone_number' => ['required', 'string', 'min:6','max:20'],
             'email' => ['filled', 'nullable', 'email', 'max:30'],
-            'date' => ['required', 'date', 'unique:appointments,appointment_time', 'after:today'],
+            'appointment_time' => ['required', 'date', 'unique:appointments,appointment_time', 'after:today'],
         ];
     }
 }

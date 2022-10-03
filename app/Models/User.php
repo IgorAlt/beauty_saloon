@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'phone',
     ];
 
     /**
@@ -45,5 +46,10 @@ class User extends Authenticatable
     public function isAdmin()
     {
         return $this->is_admin === 1;
+    }
+
+    public function userAppointments()
+    {
+        $this->hasMany(Appointment::class);
     }
 }

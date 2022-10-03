@@ -6,6 +6,7 @@ use App\Http\Requests\AppointmentRequest;
 use App\Models\Appointment;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
@@ -13,7 +14,7 @@ use Illuminate\Support\Facades\Session;
 class AppointmentController extends Controller
 {
     /**
-     * comment
+     * Запись на приём
      *
      * @return View
      */
@@ -26,30 +27,28 @@ class AppointmentController extends Controller
                 Carbon::today()->toDateTimeString()
             )->get();
 
-        return view('appointment', compact('appointmentsBusy'));
+        return view('appointment', ['appointments_busy' => $appointmentsBusy]);
     }
 
     /**
-     * comment
+     * Создание записи на приём
      * @param AppointmentRequest $appointmentRequest
      *
      * @return RedirectResponse
      */
     public function createAppointment(AppointmentRequest $appointmentRequest): RedirectResponse
     {
-        Appointment::query()->create([
-            'name' => $appointmentRequest->name,
-            'surname' => $appointmentRequest->surname,
-            'phone_number' => $appointmentRequest->phone,
-            'email' => $appointmentRequest->email,
-            'appointment_time' => $appointmentRequest->date,
-        ]);
+        Appointment::query()->create($appointmentRequest->validated());
 
         Mail::to($appointmentRequest->email)
             ->send(new \App\Mail\Appointment($appointmentRequest->name, $appointmentRequest->date));
 
         Session::flash('success', 'Вы записались на приём!');
 
-        return redirect()->route('main');
+        if (Auth::user()) {
+            return redirect()->route('home');
+        } else {
+            return redirect()->route('main');
+        }
     }
 }

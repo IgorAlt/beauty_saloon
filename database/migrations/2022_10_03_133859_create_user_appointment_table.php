@@ -13,11 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('user_appointment', function (Blueprint $table) {
             $table->id();
-            $table->string('name_post');
-            $table->text('post');
-            $table->string('images');
+            $table->integer('user_id');
+            $table->integer('appointment_id');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('user_appointment');
     }
 };
