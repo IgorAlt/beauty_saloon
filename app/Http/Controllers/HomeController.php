@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Appointment;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,20 +30,35 @@ class HomeController extends Controller
     public function index(): View
     {
         $user = Auth::user();
-        return view('home', ['user' => $user]);
+        $userAppointmentsPast = Appointment::query()->where('email', $user->email)
+            ->where('appointment_time', '<', Carbon::today()->toDateTimeString())->get();
+        $userAppointmentsFuture = Appointment::query()->where('email', $user->email)
+            ->where('appointment_time', '>=', Carbon::today()->toDateTimeString())->get();
+        $scorePast = 0;
+        $scoreFuture = 0;
+        return view('home', [
+            'user' => $user,
+            'userAppointmentsPast' => $userAppointmentsPast,
+            'userAppointmentsFuture' => $userAppointmentsFuture,
+            'scorePast' => $scorePast,
+            'scoreFuture' => $scoreFuture
+        ]);
     }
 
-    public function change(): View
+    /**Отображает форму изменения данных пользователя
+     * @return View
+     */
+    public function change(User $user): View
     {
-        $user = Auth::user();
-        return view('user_change', ['user' => $user]);
+        return view('user_change', [
+            'user' => $user
+        ]);
     }
 
     /**
-     * Update the specified resource in storage.
-     *
+     * Пользователь изменяет свои данные
      * @param  Request  $request
-     * @param
+     *
      * @return RedirectResponse
      */
     public function update(Request $request, User $user): RedirectResponse
@@ -51,6 +68,19 @@ class HomeController extends Controller
            'email' => $request->email,
            'phone' => $request->phone,
         ]);
+
+        return redirect()->route('home');
+    }
+
+    /**
+     * Пользователь удаляет свою запись
+     * @param  Appointment  $userAppointmentsFuture
+     *
+     * @return RedirectResponse
+     */
+    public function destroy(Appointment $userAppointmentsFuture): RedirectResponse
+    {
+        $userAppointmentsFuture->delete();
 
         return redirect()->route('home');
     }

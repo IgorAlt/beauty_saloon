@@ -14,7 +14,7 @@ use Illuminate\Foundation\Http\FormRequest;
 class AppointmentRequest extends FormRequest
 {
     /**
-     * Get the validation rules that apply to the request.
+     * Валидация данных записи на приём
      *
      * @return array
      */
@@ -26,6 +26,7 @@ class AppointmentRequest extends FormRequest
             'phone_number' => ['required', 'string', 'min:6','max:20'],
             'email' => ['filled', 'nullable', 'email', 'max:30'],
             'appointment_time' => ['required', 'date', 'unique:appointments,appointment_time', 'after:today'],
+            'price' => ['required'],
         ];
     }
 }

@@ -12,7 +12,7 @@ use Illuminate\View\View;
 class MainController extends Controller
 {
     /**
-     * comment
+     * Главная страница
      *
      * @return View
      */

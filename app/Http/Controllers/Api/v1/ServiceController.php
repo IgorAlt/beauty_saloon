@@ -15,6 +15,7 @@ class ServiceController extends Controller
     public function index(): JsonResource
     {
         $services = Services::all();
+
         return ServiceResource::collection($services);
     }
 }

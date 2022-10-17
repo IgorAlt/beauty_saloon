@@ -30,14 +30,20 @@ Route::group(['namespace' => 'App\Http\Controllers'], function(){
     Route::get('/appointment', [AppointmentController::class, 'index'])->name('appointment');
     Route::post('/create-appointment', [AppointmentController::class, 'createAppointment'])->name('create-appointment');
     Route::middleware(['auth:sanctum'])->group(function (){
-        Route::get('/change-user-information', [HomeController::class, 'change'])->name('change-user-information');
-        Route::put('/update-user-information/{user}', [HomeController::class, 'update'])->name('update-user-information');
+        Route::middleware(['cur_user'])->group(function () {
+            Route::get('/change-user-information/{user}', [HomeController::class, 'change'])->name('change-user-information');
+            Route::put('/update-user-information/{user}', [HomeController::class, 'update'])->name('update-user-information');
+            Route::delete('/appointment_delete/{userAppointmentsFuture}', [HomeController::class, 'destroy'])->name('appointment_delete');
+        });
         Route::group(['middleware' => 'is_admin'], function (){
             Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 
             Route::resource('masters_admin', 'MasterAdminController');
             Route::resource('services_admin', 'ServiceAdminController');
             Route::resource('posts_admin', 'PostAdminController');
+            Route::resource('appointments_admin', 'AppointmentAdminController');
+            Route::resource('user-admin', 'UserAdminController');
+            Route::resource('coupons', 'CouponController');
         });
         Route::get('/home', [HomeController::class, 'index'])->name('home');
     });

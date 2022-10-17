@@ -11,7 +11,7 @@ use Illuminate\View\View;
 class MasterAdminController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Показывает всех мастеров
      *
      * @return View
      */
@@ -25,11 +25,13 @@ class MasterAdminController extends Controller
                 return $maestro;
             });
 
-        return view('masters_admin', ['maestros' => $maestros]);
+        return view('masters_admin', [
+            'maestros' => $maestros
+        ]);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Показывает форму добавления нового мастера
      *
      * @return View
      */
@@ -39,7 +41,7 @@ class MasterAdminController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Создание нового мастера
      *
      * @param  Request  $request
      * @return RedirectResponse
@@ -60,18 +62,20 @@ class MasterAdminController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Показывает форму редактирования мастера
      *
      * @param  Masters  $masters_admin
      * @return View
      */
     public function edit(Masters $masters_admin): View
     {
-        return view('masters_form', ['masters_admin' => $masters_admin]);
+        return view('masters_form', [
+            'masters_admin' => $masters_admin
+        ]);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Редактирование мастера
      *
      * @param  Request  $request
      * @param  Masters  $masters_admin
@@ -92,9 +96,9 @@ class MasterAdminController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Удаляет мастера
+     * @param  Masters  $masters_admin
      *
-     * @param  Masters  $masters
      * @return RedirectResponse
      */
     public function destroy(Masters $masters_admin): RedirectResponse

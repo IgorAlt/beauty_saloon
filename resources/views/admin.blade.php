@@ -23,5 +23,8 @@
     <a href="{{ route('masters_admin.index') }}">Мастера</a>
     <a href="{{ route('services_admin.index') }}">Услуги</a>
     <a href="{{ route('posts_admin.index') }}">Новости</a>
+    <a href="{{ route('appointments_admin.index') }}">Записи</a>
+    <a href="{{ route('user-admin.index') }}">Пользователи</a>
+    <a href="{{ route('coupons.index') }}">Купоны</a>
 </body>
 </html>

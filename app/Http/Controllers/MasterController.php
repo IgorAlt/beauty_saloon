@@ -7,13 +7,17 @@ use Illuminate\View\View;
 
 class MasterController extends Controller
 {
-    /**Отображает всех мастеров
+    /**
+     * Отображает всех мастеров
+     *
      * @return View
      */
     public function index(): View
     {
-        $masters = Masters::all();
-        return view('masters', ['masters' => $masters]);
+        $masters = Masters::query()->get();
+        return view('masters', [
+            'masters' => $masters
+        ]);
     }
 
     public function show($request)

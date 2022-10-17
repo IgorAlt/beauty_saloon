@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\Api\v1\AppointmentController;
+use App\Http\Controllers\Api\v1\AuthController;
+use App\Http\Controllers\Api\v1\HomeController;
+use App\Http\Controllers\Api\v1\MainController;
 use App\Http\Controllers\Api\v1\MasterController;
 use App\Http\Controllers\Api\v1\PostController;
 use App\Http\Controllers\Api\v1\ServiceController;
@@ -21,7 +24,14 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::group(['middleware' => 'auth:sanctum',], function (){
+    Route::get('/home/{loginRequest}', [HomeController::class, 'index']);
+    Route::get('/user_change', [HomeController::class, 'change']);
+    Route::delete('/appointment_delete/{userAppointmentsFuture}', [HomeController::class, 'destroy']);
+    Route::post('logout', [AuthController::class, 'logout']);
+});
 
+Route::get('/main', [MainController::class, 'index'])->name('api-main');
 Route::get('/masters', [MasterController::class, 'index']);
 Route::get('/masters/{master}', [MasterController::class, 'show']);
 Route::get('/services', [ServiceController::class, 'index']);
@@ -29,3 +39,6 @@ Route::get('/posts', [PostController::class, 'index']);
 Route::get('/posts/{post}', [PostController::class, 'show']);
 Route::get('/appointment', [AppointmentController::class, 'index']);
 Route::post('/appointment-create', [AppointmentController::class, 'create']);
+Route::post('register', [AuthController::class, 'register']);
+Route::post('login', [AuthController::class, 'login']);
+Route::post('token', [AuthController::class, 'token']);

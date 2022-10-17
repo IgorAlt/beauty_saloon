@@ -10,6 +10,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class MasterController extends Controller
 {
     /**Страница со всеми мастерами
+     *
      * @return JsonResource
      */
     public function index(): JsonResource
@@ -20,6 +21,7 @@ class MasterController extends Controller
 
     /**Показывает конкретного мастера
      * @param Masters $master
+     *
      * @return JsonResource
      */
     public function show(Masters $master): JsonResource
