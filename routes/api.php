@@ -32,13 +32,13 @@ Route::group(['middleware' => 'auth:sanctum',], function (){
 });
 
 Route::get('/main', [MainController::class, 'index'])->name('api-main');
-Route::get('/masters', [MasterController::class, 'index']);
-Route::get('/masters/{master}', [MasterController::class, 'show']);
-Route::get('/services', [ServiceController::class, 'index']);
+Route::get('/masters', [MasterController::class, 'index'])->name('api-masters');
+Route::get('/masters/{master}', [MasterController::class, 'show'])->name('api-master');
+Route::get('/services', [ServiceController::class, 'index'])->name('api-services');
 Route::get('/posts', [PostController::class, 'index']);
 Route::get('/posts/{post}', [PostController::class, 'show']);
 Route::get('/appointment', [AppointmentController::class, 'index']);
 Route::post('/appointment-create', [AppointmentController::class, 'create']);
-Route::post('register', [AuthController::class, 'register']);
+Route::post('register', [AuthController::class, 'register'])->name('api-register');
 Route::post('login', [AuthController::class, 'login']);
 Route::post('token', [AuthController::class, 'token']);
